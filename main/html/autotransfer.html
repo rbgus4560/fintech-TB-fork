@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>금융 종합 웹서비스 프로그램</title>
+    <!--자동이체 페이지-->
+    <link rel="stylesheet" href="autotransfer.css">
+</head>
+<body>
+<div class="container_main">
+    <div class="sidebar">
+        <h2>금융 종합 <br>웹서비스 프로그램</h2>
+        <nav>
+            <ul>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">지출 캘린더</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">최근 거래 내역</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">자산 현황</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">송금</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">나의 포트폴리오</a></li>
+            </ul>
+        </nav>
+        <iframe src="https://www.musinsa.com/main/" class="ppl">네이버</iframe>
+    </div>
+    <main class="main-content">
+        <div class="header">
+            <h2 class="welcome">Welcome to TB</h2>
+            <div class="search_bar">
+                <input type="text" class="search" placeholder="Search">
+                <button type="button" class="search-btn">검색</button>
+            </div>
+            <div class="login_sign_up">
+                <a href="login_page.html" type="button" class="login-btn">로그인</a>
+                <a href="sign-up.html" type="button" class="sign-up-btn">회원가입</a>
+            </div>
+        </div>
+        <div class="main_container">
+            <div class="container_left">
+                <div class="autotansfer-box">
+                    <div class="autotansfer-title">
+                        <h4>자동 이체 목록</h4>
+                    </div>
+                        <div class="autotansfer">
+                        <div class="autotansfer-list">
+                            <table>
+                                <tr>
+                                    <th>은행</th>
+                                    <th>날짜</th>
+                                    <th>계좌</th>
+                                    <th>거래내용</th>
+                                    <th>거래대상</th>
+                                </tr>
+                                <!-- 등록 계좌 -->
+                            </table>
+                        </div>
+                        <div class="autotansfer-status">
+                            <div class="autotansfer-status-title">
+                                <h4>이번달 자동이체 현황</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="autotansfer-account-box">
+                    <div class="autotansfer-account-title">
+                        <h4>등록된 자동이체 계좌</h4>
+                        <div class="button-group">
+                            <button type="button" class="register">등록</button>
+                            <button type="button" class="close">해지</button>
+                            <button type="button" class="change">변경</button>
+                        </div>
+                    </div>
+                    <div class="autotansfer-account-list">
+                            <table>
+                                <tr>
+                                    <th>은행</th>
+                                    <th>날짜</th>
+                                    <th>계좌</th>
+                                    <th>거래내용</th>
+                                    <th>거래대상</th>
+                                </tr>
+                                <!-- 등록 계좌 -->
+                            </table>
+                    </div>
+                </div>
+            </div>
+            <div class="container_right">
+                <div class="autotansfer-history">
+                    <h4>자동 이체 내역</h4>
+                    <hr>
+                </div>
+
+                <div class="autotansfer-history-list">
+                
+                </div>
+            </div>
+    </main>
+
+</div>
+</body>
+<script>
+    function loginAlert() {
+        alert("로그인 필요!");
+    }
+</script>
+</html>
+
+</body>
+</html>

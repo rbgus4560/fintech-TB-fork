@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>금융 종합 웹서비스 프로그램</title>
+    <!--이체 페이지-->
+    <link rel="stylesheet" href="accountTransfer.css">
+</head>
+<body>
+<div class="container_main">
+    <div class="sidebar">
+        <h2>금융 종합 <br>웹서비스 프로그램</h2>
+        <nav>
+            <ul>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">지출 캘린더</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">최근 거래 내역</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">자산 현황</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">송금</a></li>
+                <li class="sidebar_pages"><a href="#" onclick="loginAlert()">나의 포트폴리오</a></li>
+            </ul>
+        </nav>
+        <iframe src="https://www.musinsa.com/main/" class="ppl">네이버</iframe>
+    </div>
+    <main class="main-content">
+        <div class="header">
+            <h2 class="welcome">Welcome to TB</h2>
+            <div class="search_bar">
+                <input type="text" class="search" placeholder="Search">
+                <button type="button" class="search-btn">검색</button>
+            </div>
+            <div class="login_sign_up">
+                <a href="login_page.html" type="button" class="login-btn">로그인</a>
+                <a href="sign-up.html" type="button" class="sign-up-btn">회원가입</a>
+            </div>
+        </div>
+        <div class="main_container">
+            <div class="container_left">
+                <div class="account-transfer-box">
+                    <div class="account-transfer-title">
+                        <h4>계좌 이체</h4>
+                    </div>
+
+                    <div class="account-bank-choice">
+                        <div class="accont-choice">
+                            <ul>
+                                <li>최근 입금 계좌</li>
+                                <li>자주 쓰는 계좌</li>
+                                <li>보유 계좌</li>
+                            </ul>
+                        </div>
+
+                        <div class="account-information">
+                            <div class="account-information-search">
+                                <input type="text" class="search" placeholder="account-Search">
+                                <button type="button" class="account-btn">검색</button>
+                            </div>
+                            <div class="account-information-choice">
+                                <ul>
+                                    <li>계좌 정보</li>
+                                    <li>계좌 정보</li>
+                                    <li>계좌 정보</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-transfer-insert">
+                        <div class="account-transfer-insert-list">
+                            <ul>
+                                <li>출금계좌번호</li>
+                                <li>입금기관</li>
+                                <li>입금계좌번호</li>
+                                <li>이체금액</li>
+                                <li>계좌비밀번호</li>
+                                <li>내통장 표시</li>
+                                <li>받는분 통장 표시</li>
+                                <li>받는분 예금주명</li> 
+                                <li>이체 지정일</li>
+                            </ul>
+                        </div>
+                        <div class="account-transfer-insert-int">
+                            <ul>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="출금 계좌번호 입력">
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="입금기관">
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="입금계좌번호">
+                                </li>
+                                <li>
+                                    <label>이체 금액:</label>
+                                    <div class="amount-options">
+                                        <button type="button">100만원</button>
+                                        <button type="button">50만원</button>
+                                        <button type="button">10만원</button>
+                                        <button type="button">5만원</button>
+                                        <button type="button">1만원</button>
+                                        <button type="button">전액</button>
+                                        <button type="button">정정</button>
+                                    </div>
+                                  </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="이체금액"> <button type="button" class="number-btn">계산기</button>
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="계좌비밀번호"> <button type="button" class="mouse-btn">마우스 입력</button>
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="내통장 표시">
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="받는분 통장 표시">
+                                </li>
+                                <li>
+                                    <input type="text" id="fromAccount" placeholder="받는분 예금주명">
+                                </li>
+                                <li>
+                                    <input type="date" id="date" placeholder="이체 지정일 날짜">
+                                    <input type="time" id="time" placeholder="이체 지정일 시간">
+                                </li>
+
+                                <li>
+                                    <button type="submit">이체하기</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+           
+            </div>
+
+            <div class="container_right">
+                <div class="account-tansfer-history">
+                    <h4>금일 이체 내역</h4>
+                    <hr>
+                </div>
+                <div class="account-tansfer-history-list">
+                </div>
+            </div>
+    </main>
+
+</div>
+</body>
+<script>
+    function loginAlert() {
+        alert("로그인 필요!");
+    }
+</script>
+</html>
+
+</body>
+</html>
