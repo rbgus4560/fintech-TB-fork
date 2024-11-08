@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>금융 종합 웹서비스 프로그램</title>
+    <link rel="stylesheet" href="../css/intro_page.css" />
+    <link rel="stylesheet" href="../css/board.css" />
+  </head>
+
+  <body>
+    <div class="container_main">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h2>금융 종합 <br />웹서비스 프로그램</h2>
+        <nav>
+          <ul>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">지출 캘린더</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">최근 거래 내역</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">자산 현황</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">송금</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">나의 포트폴리오</a>
+            </li>
+          </ul>
+        </nav>
+        <iframe src="https://www.musinsa.com/main/" class="ppl">네이버</iframe>
+      </div>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="header">
+          <h2 class="welcome">Welcome to TB Board</h2>
+          <div class="search_bar">
+            <input type="text" class="search" placeholder="Search" />
+            <button type="button" class="search-btn">검색</button>
+          </div>
+          <div class="login_sign_up">
+            <a href="login_page.html" class="login-btn">로그인</a>
+            <a href="sign-up.html" class="sign-up-btn">회원가입</a>
+          </div>
+        </div>
+
+        <div class="main_container">
+          <!-- Left Side: Board Section -->
+          <div class="container_left">
+            <h2>게시판</h2>
+            <table class="board_table">
+              <thead>
+                <tr>
+                  <th class="board_number">글번호</th>
+                  <th class="board_title">제목</th>
+                  <th class="board_write">작성자</th>
+                  <th class="board_views">조회수</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="board_number">2</td>
+                  <td class="board_title">
+                    <a
+                      href="./board_post.html"
+                      class="board_post_go_first board_post_hyperlink"
+                    >
+                      민지는 우리팀 기술이사 이다.
+                    </a>
+                  </td>
+                  <td class="board_write">홍철</td>
+                  <td class="board_views">300</td>
+                </tr>
+                <tr>
+                  <td class="board_number">1</td>
+                  <td class="board_title">
+                    <a
+                      href="./board_post.html"
+                      class="board_post_go_second board_post_hyperlink"
+                    >
+                      홍혁철은 TB조 바지팀장입니다 실질적 팀장은 민지 이다
+                    </a>
+                  </td>
+                  <td class="board_write">따발총</td>
+                  <td class="board_views">400</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+              <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">&raquo;</a>
+              </div>
+            </div>
+            <div class="write-post">
+              <a href="#" class="write-btn">글쓰기</a>
+            </div>
+          </div>
+
+          <div class="chat_area">
+            <h2>채팅</h2>
+            <div class="chat_message">
+              <p class="chat_anonymous">익명29814:</p>
+              <p class="chat_anonymous_comunication">도가자~</p>
+            </div>
+            <div class="chat_message">
+              <p class="chat_anonymous">익명5879:</p>
+              <p class="chat_anonymous_comunication">이건 사야해</p>
+            </div>
+            <div class="chat_message">
+              <p class="chat_anonymous">익명10323:</p>
+              <p class="chat_anonymous_comunication">화성 갈꺼니까~</p>
+            </div>
+            <div class="chat_message">
+              <p class="chat_anonymous">익명58488:</p>
+              <p class="chat_anonymous_comunication">10만전자 가즈아~</p>
+            </div>
+            <div class="chat_message">
+              <p class="chat_anonymous">익명8947:</p>
+              <p class="chat_anonymous_comunication">민지</p>
+            </div>
+            <div class="chat_wrapper">
+              <div class="chatting">
+                <input
+                  type="text"
+                  class="chatting_input"
+                  placeholder="입력하세요"
+                />
+                <button type="button" class="chatting_btn">전송</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+
+  <script>
+    function loginAlert() {
+      alert('로그인 필요!');
+    }
+  </script>
+</html>

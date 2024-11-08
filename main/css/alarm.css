@@ -1,0 +1,27 @@
+.notification_box {
+  border: 1px solid var(--border-color);
+  margin: 5px;
+  width: 50%;
+  border-radius: var(--container-border-radius);
+  position: relative;
+}
+
+.notification_box p {
+  padding: 5px;
+}
+
+.notification_box .notification_time {
+  position: absolute;
+  top: 3px;
+  right: 0;
+}
+
+.notification_link {
+  text-decoration: none;
+  color: var(--black);
+}
+
+.notification_link:hover {
+  text-decoration: none;
+  color: var(--first-color);
+}

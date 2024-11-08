@@ -1,0 +1,79 @@
+
+/* 채팅 영역 (오른쪽) */
+.chat_area {
+  position: relative;
+  width: 35%;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  overflow-y: auto;
+  /* 채팅이 많아지면 스크롤바 생성 */
+  background-color: var(--white);
+  border-radius: var(--container-border-radius);
+  box-sizing: border-box;
+  /* 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
+}
+
+/* 각 메시지 컨테이너 스타일 */
+.chat_message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 2em;
+}
+
+.chat_anonymous {
+  font-weight: bold;
+  color: var(--button-color);
+  margin-right: 10px;
+  flex-shrink: 0; /* 사용자 이름이 잘리는 것을 방지 */
+  width: 90px;   /* 정렬을 위한 고정 너비 */
+  text-align: left;
+}
+
+/* 사용자 이름 옆에 정렬된 채팅 메시지 */
+.chat_anonymous_comunication {
+  color: var(--text-color-grey);
+  background-color: var(--container-color);
+  padding: 5px 10px;
+  border-radius: 4px;
+  max-width: 70%;
+  word-wrap: break-word; /* 긴 단어 줄바꿈 */
+}
+
+.chat_wrapper {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* 채팅 입력창과 전송 버튼 */
+.chatting {
+  display: flex;
+  margin-top: 10px;
+}
+
+.chatting_input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.chatting_btn {
+  padding: 8px 16px;
+  margin-left: 5px;
+  border: none;
+  background-color: var(--button-color);
+  color: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chatting_btn:hover {
+  background-color: var(--button-hover-color);
+}

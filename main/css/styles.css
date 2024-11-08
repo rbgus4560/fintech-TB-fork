@@ -33,3 +33,25 @@
     --input-border-radius: 10px;
     --sns-border-radius: 50px;
 }
+
+:root {
+  --padding-big-size: 2em;
+  --padding-middle-size: 1.5em;
+  --padding-small-size: 1em;
+  --margin-big-size: 2em;
+  --margin-middle-size: 1.5em;
+  --margin-small-size: 1em;
+  --font-big-size: 2em;
+  --font-middle-size: 1.5em;
+  --font-small-size: 1em;
+  /* --padding-big-size: 20px;
+  --padding-middle-size: 15px;
+  --padding-small-size: 10px;
+  --margin-big-size: 20px;
+  --margin-middle-size: 15px;
+  --margin-small-size: 10px;
+  --font-big-size: 2em;
+  --font-middle-size: 1.5em;
+  --font-small-size: 1em; */
+
+}

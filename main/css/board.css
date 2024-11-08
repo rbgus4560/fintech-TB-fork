@@ -1,0 +1,130 @@
+@import url(./styles.css);
+@import url(./board_chat.css);
+:root {
+  --white-color: #f2f2f2;
+  --grey-color: #333;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 전체 뷰포트 높이 사용 */
+}
+
+.main_container {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+/* 게시판 영역 (왼쪽) */
+.container_left {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  padding: var(--padding-big-size);
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  border-radius: var(--container-border-radius);
+  box-sizing: border-box;
+  /* 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
+}
+
+.board_table {
+  width: 100%;
+  border-collapse: collapse;
+  flex-grow: 0;
+}
+
+.board_table th, .board_table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--forth-color);
+  font-size: 1em;
+}
+
+.board_number, .board_views, .board_write {
+  width: 4em;
+}
+
+.board_title {
+  white-space: nowrap;
+  /* 텍스트가 한 줄에만 표시되도록 */
+  overflow: hidden;
+  /* 박스를 넘는 부분 숨기기 */
+  text-overflow: ellipsis;
+  /* 넘치는 부분을 ...으로 표시 */
+  max-width: 100px;
+  /* display: inline-block;  */
+}
+
+@media screen and (max-width: 1440px) {
+  .board_table th, .board_table td {
+    /* font-size: 0.5em; */
+  }
+}
+
+/* @media screen and (max-width: 1110px){
+  .board_table {
+  }
+} */
+
+.board_number, .board_write, .board_views {
+  text-align: center;
+}
+
+.board_table th {
+  background-color: var(--white-color);
+  font-weight: bold;
+}
+
+.board_post_hyperlink {
+  color: var(--black);
+  text-decoration: none;
+  /* 밑줄 제거 */
+}
+
+.board_post_hyperlink:hover {
+  color: var(--button-hover-color);
+  text-decoration: none;
+}
+
+.pagination-wrapper {
+  margin-top: auto; /* 페이지네이션을 아래로 밀기 */
+  text-align: center;
+  padding-top: 15px;
+}
+
+.pagination {
+  text-align: center;
+  padding-bottom: 1em;
+}
+
+.pagination a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: var(--button-color);
+}
+
+.pagination a:hover {
+  color: var(--button-hover-color);
+}
+
+.write-post {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.write-btn{
+  background-color: var(--button-color);
+  border-radius: var(--button-border-radius);
+  font-size: 0.8em;
+  padding: 0.5em;
+  text-decoration: none;
+  color: var(--white);
+}
+
+.write-btn:hover {
+  background-color: var(--button-hover-color);
+  text-decoration: none;
+}

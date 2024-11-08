@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>금융 종합 웹서비스 프로그램</title>
+    <link rel="stylesheet" href="../css/intro_page.css" />
+    <link rel="stylesheet" href="../css/alarm.css" />
+  </head>
+  <body>
+    <div class="container_main">
+      <div class="sidebar">
+        <h2>금융 종합 <br />웹서비스 프로그램</h2>
+        <nav>
+          <ul>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">지출 캘린더</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">최근 거래 내역</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">자산 현황</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">송금</a>
+            </li>
+            <li class="sidebar_pages">
+              <a href="#" onclick="loginAlert()">나의 포트폴리오</a>
+            </li>
+          </ul>
+        </nav>
+        <iframe src="https://www.musinsa.com/main/" class="ppl">네이버</iframe>
+      </div>
+      <main class="main-content">
+        <div class="header">
+          <h2 class="welcome">Welcome to TB</h2>
+          <div class="search_bar">
+            <input type="text" class="search" placeholder="Search" />
+            <button type="button" class="search-btn">검색</button>
+          </div>
+          <div class="login_sign_up">
+            <a href="login_page.html" type="button" class="login-btn">로그인</a>
+            <a href="sign-up.html" type="button" class="sign-up-btn"
+              >회원가입</a
+            >
+          </div>
+        </div>
+        <div class="main_container">
+          <div class="container_right">
+            <h2>알림</h2>
+            <hr style="border-style: solid" />
+
+            <!-- 입금 알림 -->
+            <div class="notification_box">
+              <p><strong>입금</strong></p>
+              <p class="notification_time">2024-11-07 16:29:31</p>
+              <p>
+                민지님이 <strong>10,000원</strong>을 입금하셨습니다
+                <span class="balance">잔액 10,001원</span>
+              </p>
+            </div>
+            
+            <!-- 자동이체 알림 -->
+            <div class="notification_box">
+              <p><strong>자동이체</strong></p>
+              <p class="notification_time">2024-11-07 16:29:31</p>
+              <p>
+                현대카드 납입금 <strong>1,234,567원</strong>이 납입되었습니다
+                <span class="balance">잔액: 1원</span>
+              </p>
+            </div>
+            
+            <!-- 댓글 알림 -->
+            <div class="notification_box">
+              <p><strong>댓글</strong></p>
+              <p class="notification_time">2024-11-07 16:29:31</p>
+              <p>
+                <a href="./board_post.html" class="notification_link">
+                  ***님이 댓글에 <strong>좋아요</strong>를 눌렀습니다.
+                </a>
+              </p>
+            </div>
+            
+            <!-- 대댓글 알림 -->
+            <div class="notification_box">
+              <p><strong>댓글</strong></p>
+              <p class="notification_time">2024-11-07 16:29:31</p>
+              <p>
+                <a href="./board_post.html" class="notification_link">
+                  작성한 게시물에 <strong>댓글</strong>이 달렸습니다.
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script>
+    function loginAlert() {
+      alert('로그인 필요!');
+    }
+  </script>
+</html>

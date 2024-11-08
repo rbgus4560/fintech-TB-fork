@@ -1,0 +1,156 @@
+@import url(./styles.css);
+@import url(./board_chat.css);
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* 전체 뷰포트 높이 사용 */
+}
+
+.main_container {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+/* 게시판 영역 (왼쪽) */
+.container_left {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  padding: var(--padding-big-size);
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  border-radius: var(--container-border-radius);
+  box-sizing: border-box;
+  /* 생성하는 박스는 margin을 포함하여 전체 사이즈를 지정 */
+}
+
+.post_container {
+  height: 100%;
+  /* border: 2px solid var(--grey); */
+  /* padding: var(--padding-big-size); */
+  box-sizing: border-box;
+}
+
+.post_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border-bottom: 2px solid var(--grey); */
+  padding-bottom: var(--padding-small-size);
+  height: 3em;
+}
+
+.post_title {
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.post_actions {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.post_actions_write,
+.post_actions_write_name {
+  white-space: nowrap;
+  /* padding-left: 1em; */
+}
+
+.three_dot_container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 3em;
+  padding-bottom: 3em;
+  font-size: 1.5em;
+  position: absolute;
+}
+
+.actions_buttons {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  position: absolute;
+  background-color: var(--white);
+}
+
+.edit_btn,
+.delete_btn {
+  padding: 5px 10px;
+  margin-top: 5px;
+  border: 1px solid var(--border-color);
+  background: none;
+  cursor: pointer;
+  border-radius: var(--button-border-radius);
+}
+
+.post_content {
+  height: 40%;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  padding: 20px;
+  margin: 0;
+}
+
+.post_date {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 2px solid var(--border-color);
+}
+
+.date_text {
+  padding-left: 20px;
+}
+
+.comments_section {
+  border-top: 2px solid var(--border-color);
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.comments_section h3 {
+  margin: 5px;
+}
+
+.comment {
+  border-top: 1px solid var(--border-color);
+  padding: 10px 0;
+}
+
+.comment_info {
+  font-weight: bold;
+}
+
+.comment_like {
+  display: inline-block;
+  padding-top: 10px;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+
+.comment_show {
+  display: none;
+}
+
+.comment_text {
+  margin: 5px 0;
+}
+
+.comment_actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.hide {
+  display: none;
+}
