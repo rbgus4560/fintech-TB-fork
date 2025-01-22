@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { shop } from "./style";
+import { shop, ShoppingNavContainer } from "./style";
 import ShoppingNav from "./ShoppingNav";
 
 interface ProductData {
   productNo: number;
-  img: string;
+  productImg: string;
   productName: string;
   productPrice: number;
   category: string;
@@ -49,7 +49,7 @@ const CategoryPage: React.FC = () => {
               key={item.productNo}
               onClick={() => handleProductClick(item.productNo)}
             >
-              <shop.ItemImg src={item.img} alt={item.productName} />
+              <shop.ItemImg src={item.productImg} alt={item.productName} />
               <shop.ItemDescription>
                 <li>{item.productName}</li>
                 <li>{item.productPrice.toLocaleString()}원</li>

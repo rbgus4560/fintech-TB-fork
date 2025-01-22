@@ -25,6 +25,7 @@ import MesBiensShop from "../pages/mesbiensShop/MesBiensShop";
 import ProductPage from "../pages/mesbiensShop/ProductPage";
 import CategoryPage from "../pages/mesbiensShop/CategoryPage";
 import CartPage from "../pages/mesbiensShop/CartPage";
+import PurchasePage from "../pages/mesbiensShop/PurchasePage";
 
 const routes: RouteObject[] = [
   {
@@ -126,6 +127,10 @@ const routes: RouteObject[] = [
   {
     path: "/Cart",
     element: <CartPage />,
+  },
+  {
+    path: "/Purchase",
+    element: <PurchasePage />,
   },
   // {
   //   path: "ProductPage",

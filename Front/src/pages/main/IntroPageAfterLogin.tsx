@@ -1,12 +1,7 @@
 import React from "react";
 import { M } from "./style";
-// import L from "../login/LoginStyle";
-import VerticalDivider from "../../components/divider/VerticalDivider";
-import { useCookies } from "react-cookie";
 
 const IntroPageAfterLogin: React.FC = () => {
-  const [cookies] = useCookies<string>(["useID"]); // 쿠키 가져오기
-
   return (
     <M.MainContainer>
       <M.LeftAreaContainer>

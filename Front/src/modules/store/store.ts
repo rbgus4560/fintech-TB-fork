@@ -1,12 +1,14 @@
-import { configureStore, createReducer } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { modalSlice } from "../modal/modalReducer";
 import { cartSlice } from "../cart/cartSlice";
 import { useDispatch } from "react-redux";
+import { userSlice } from "../user/userSlice";
 
 export const store = configureStore({
   reducer: {
     modal: modalSlice.reducer,
     cart: cartSlice.reducer,
+    user: userSlice.reducer,
   },
 });
 

@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
 import DefaultInputField from "../../components/inputfield/InputField";
 import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
-import { useAuth } from "../../lib/AuthContext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules/store/store";
 
 const LoginPage: React.FC = () => {
-  const { setUserID } = useAuth(); // Context에서 setUserID 가져오기
-  const [loginForm, setLoginForm] = useState<{
-    userID: string;
-    userPassword: string;
-  }>({
+  const [loginForm, setLoginForm] = useState({
     userID: "",
     userPassword: "",
   });
 
-  // const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const [cookies, setCookie] = useCookies<string>(["userID"]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
+
+  const user = useSelector((state: RootState) => state.user);
 
   const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -30,9 +28,9 @@ const LoginPage: React.FC = () => {
     // 유효성 검사
     if (userID === "" || userPassword === "") {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
-    } else if (userID !== "user") {
+    } else if (userID !== user.username) {
       setErrors("ID가 일치하지 않습니다.");
-    } else if (userPassword !== "0000") {
+    } else if (userPassword !== user.password) {
       setErrors("비밀번호가 일치하지 않습니다.");
     } else {
       // 유효성 통과 시
@@ -41,45 +39,18 @@ const LoginPage: React.FC = () => {
       alert("로그인 성공");
 
       // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
-      setCookie("userID", userID, { maxAge: 2000 });
-
-      // userID를 Context에 저장
-      setUserID(userID);
-
-      // 로그인 처리 후 상태 초기화
-      setLoginForm({ userID: "", userPassword: "" });
-      setErrors("");
+      setCookie("userID", userID, { path: "/" });
 
       navigate("/main");
     }
   };
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-
-    const { userID, userPassword } = loginForm;
-
-    if (userID === "" || userPassword === "") {
-      setErrors("ID 또는 비밀번호를 입력해 주세요!.");
-    } else if (userID !== "user") {
-      setErrors("ID가 일치하지 않습니다.");
-    } else if (userPassword !== "0000") {
-      setErrors("비밀번호가 일치하지 않습니다.");
-    } else {
-      // 유효성 통과 시
-      console.log("아이디 : " + userID);
-      console.log("비밀번호 : " + userPassword);
-      alert("로그인 성공");
-
-      // userID를 Context에 저장
-      setUserID(userID);
-
-      // 로그인 처리 후 상태 초기화
-      setLoginForm({ userID: "", userPassword: "" });
-      setErrors("");
-
-      navigate("/main");
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
   };
 
   return (
@@ -92,24 +63,23 @@ const LoginPage: React.FC = () => {
           <L.P_tag>회원 ID와 비밀번호를 입력하세요.</L.P_tag>
           <form onSubmit={HandleLogin}>
             <DefaultInputField
+              type="text"
               id="userID"
-              placeholder="회원 ID (fintech123)"
-              // required
+              name="userID"
+              placeholder="회원 ID"
               value={loginForm.userID}
-              onChange={(e) =>
-                setLoginForm({ ...loginForm, userID: e.target.value })
-              }
+              onChange={handleChange}
+              required
             />
             <br />
             <DefaultInputField
               type="password"
-              id="password"
-              placeholder="비밀번호 (123456)"
-              // required
+              id="userPassword"
+              name="userPassword"
+              placeholder="비밀번호"
               value={loginForm.userPassword}
-              onChange={(e) =>
-                setLoginForm({ ...loginForm, userPassword: e.target.value })
-              }
+              onChange={handleChange}
+              required
             />
             <L.RememberMe type="checkbox" />
             <label htmlFor="remember">ID 기억하기</label>

@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 const Sidebar: React.FunctionComponent = (): JSX.Element => {
   const navigate = useNavigate();
   const [cookies] = useCookies<string>(["useID"]); // 쿠키에서 userID 가져오기
-  // const [isChecked, setIsChecked] = useState(false); // 버튼 클릭 여부를 추적하는 상태
 
   const handleCheckLogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();

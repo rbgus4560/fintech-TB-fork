@@ -5,20 +5,14 @@ import VerticalDivider from "../../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "../../../modules/store/store";
+import { useSelector } from "react-redux";
 
 const Header: React.FC = () => {
-  // 리덕스 불러오는 코드
-
   const [cookies, setCookie, removeCookie] = useCookies<string>(["userID"]); // 쿠키 가져오기
   const navigate = useNavigate(); // 리다이렉션을 위한 navigate 훅 사용
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [SearchVisible, setSearchVisible] = useState(false);
-  const toggleSearchBar = () => {
-    setSearchVisible(!SearchVisible);
-  };
+  const user = useSelector((state: RootState) => state.user);
 
   const handleLogout = () => {
     // 로그아웃 처리 로직 추가
@@ -62,9 +56,7 @@ const Header: React.FC = () => {
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
-        {cookies.userID
-          ? `${cookies.userID}님 환영합니다.`
-          : "Welcome to MesBiens"}
+        {cookies.userID ? `${user.name}님 환영합니다.` : "Welcome to MesBiens"}
         {cookies.userID && ( // 쿠키가 있을 때만 로그아웃 버튼 표시
           <S.LogoutBtn onClick={handleLogout}>로그아웃</S.LogoutBtn>
         )}

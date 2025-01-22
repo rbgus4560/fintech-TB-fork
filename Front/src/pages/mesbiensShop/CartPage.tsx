@@ -1,5 +1,5 @@
 // CartPage.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../modules/store/store"; // RootState 타입 임포트
 import { shop, cart } from "./style";
@@ -9,10 +9,19 @@ import {
   updateQuantity,
   clearCart,
 } from "../../modules/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (cartItems) {
+      setSelectedItems(cartItems.map((item) => item.productNo));
+    }
+  }, [cartItems]);
 
   const handleRemove = (productNo: number) => {
     dispatch(removeFromCart(productNo));
@@ -26,11 +35,29 @@ const CartPage: React.FC = () => {
     dispatch(clearCart());
   };
 
+  const handleSelectItem = (productNo: number) => {
+    setSelectedItems((prevSelectedItems) =>
+      prevSelectedItems.includes(productNo)
+        ? prevSelectedItems.filter((no) => no !== productNo)
+        : [...prevSelectedItems, productNo]
+    );
+  };
+
   const calculateTotalAmount = () => {
     return items.reduce(
-      (total, item) => total + item.quantity * item.productPrice,
+      (total, item) =>
+        selectedItems.includes(item.productNo)
+          ? total + item.quantity * item.productPrice
+          : total,
       0
     );
+  };
+
+  const handlePurchase = () => {
+    const selectedProducts = items.filter((item) =>
+      selectedItems.includes(item.productNo)
+    );
+    navigate("/Purchase", { state: { selectedProducts } });
   };
 
   // cartItems가 undefined일 경우 빈 배열을 기본값으로 설정
@@ -52,6 +79,11 @@ const CartPage: React.FC = () => {
               </cart.ClearCartContainer>
               {items.map((item) => (
                 <cart.ContentLi key={item.productNo}>
+                  <cart.Input
+                    type="checkbox"
+                    checked={selectedItems.includes(item.productNo)}
+                    onChange={() => handleSelectItem(item.productNo)}
+                  />
                   <cart.Thumbnail
                     src={item.productImg}
                     alt={item.productName}
@@ -85,15 +117,14 @@ const CartPage: React.FC = () => {
                   </cart.Btn>
                 </cart.ContentLi>
               ))}
+              <cart.PurchaseContainer>
+                <cart.TotalAmount>
+                  총액 : {calculateTotalAmount().toLocaleString()}원
+                </cart.TotalAmount>
+                <cart.Btn onClick={handlePurchase}>구매하기</cart.Btn>
+              </cart.PurchaseContainer>
             </cart.ContentUl>
           )}
-          {/* <shop.Divider /> */}
-          <cart.PurchaseContainer>
-            <cart.TotalAmount>
-              총액 : {calculateTotalAmount().toLocaleString()}원
-            </cart.TotalAmount>
-            <cart.Btn>구매하기</cart.Btn>
-          </cart.PurchaseContainer>
         </cart.ContentContainer>
       </shop.BodyContainer>
     </shop.MainContainer>

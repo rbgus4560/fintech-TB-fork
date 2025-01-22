@@ -1,42 +1,42 @@
 [
   {
     "productNo": 1,
-    "img": "../images/shoppingImg/cola.jpg",
+    "productImg": "../images/shoppingImg/cola.jpg",
     "productName": "코카콜라 (250ml)",
     "productPrice": 15000,
     "category": "생활"
   },
   {
     "productNo": 2,
-    "img": "../images/shoppingImg/water.png",
+    "productImg": "../images/shoppingImg/water.png",
     "productName": "메비앙 프리미엄 생수 (500ml)",
     "productPrice": 800,
     "category": "생활"
   },
   {
     "productNo": 3,
-    "img": "../images/shoppingImg/waterpackage.png",
+    "productImg": "../images/shoppingImg/waterpackage.png",
     "productName": "메비앙 프리미엄 생수 (2L)*36개",
     "productPrice": 24750,
     "category": "생활"
   },
   {
     "productNo": 4,
-    "img": "../images/shoppingImg/perfume.png",
+    "productImg": "../images/shoppingImg/perfume.png",
     "productName": "메비앙 시그니처 퍼퓸",
     "productPrice": 49000,
     "category": "뷰티"
   },
   {
     "productNo": 5,
-    "img": "../images/shoppingImg/cream.png",
+    "productImg": "../images/shoppingImg/cream.png",
     "productName": "[탄력/보습크림] 메비앙 수분크림 (500ml) 1+1 기획",
     "productPrice": 24900,
     "category": "뷰티"
   },
   {
     "productNo": 6,
-    "img": "../images/shoppingImg/lotion.png",
+    "productImg": "../images/shoppingImg/lotion.png",
     "productName": "[탄력/보습크림] 메비앙 로션 (800ml)",
     "productPrice": 24900,
     "category": "뷰티"

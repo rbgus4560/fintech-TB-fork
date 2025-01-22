@@ -3,6 +3,11 @@ import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
 import VerticalDivider from "../../components/divider/VerticalDivider";
+import { useDispatch } from "react-redux";
+import { signup } from "../../modules/user/userSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../modules/store/store";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage: React.FC = () => {
   const [name, setName] = useState("");
@@ -10,15 +15,29 @@ const SignupPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<string>("");
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+      setErrors("비밀번호가 일치하지 않습니다!");
+    } else {
+      alert("회원가입 완료");
+      navigate("/login");
     }
-    // Submit form logic here
-    console.log({ name, email, username, password, confirmPassword });
+    dispatch(signup({ name, email, username, password }));
+    console.log("Signup Data:", {
+      name,
+      email,
+      username,
+      password,
+      confirmPassword,
+    });
+    console.log("Redux State:", user);
   };
 
   return (
@@ -70,6 +89,7 @@ const SignupPage: React.FC = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+            {errors && <div style={{ color: "red" }}>{errors}</div>}
             <DefaultButton width="100%">Sign Up</DefaultButton>
           </form>
           <L.Divider>

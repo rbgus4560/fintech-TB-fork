@@ -5,23 +5,21 @@ import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
 import { useNavigate } from "react-router-dom";
 import VerticalDivider from "../../components/divider/VerticalDivider";
-import { useAuth } from "../../lib/AuthContext";
 import { useCookies } from "react-cookie";
+import { RootState } from "../../modules/store/store";
+import { useSelector } from "react-redux";
 
 const IntroPageBeforeLogin: React.FC = () => {
-  const { setUserID } = useAuth(); // Context에서 setUserID 가져오기
-  const [loginForm, setLoginForm] = useState<{
-    userID: string;
-    userPassword: string;
-  }>({
+  const [loginForm, setLoginForm] = useState({
     userID: "",
     userPassword: "",
   });
 
-  // const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const [cookies, setCookie] = useCookies<string>(["userID"]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
+
+  const user = useSelector((state: RootState) => state.user);
 
   const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -31,9 +29,9 @@ const IntroPageBeforeLogin: React.FC = () => {
     // 유효성 검사
     if (userID === "" || userPassword === "") {
       setErrors("ID 또는 비밀번호를 입력해 주세요!");
-    } else if (userID !== "user") {
+    } else if (userID !== user.username) {
       setErrors("ID가 일치하지 않습니다.");
-    } else if (userPassword !== "0000") {
+    } else if (userPassword !== user.password) {
       setErrors("비밀번호가 일치하지 않습니다.");
     } else {
       // 유효성 통과 시
@@ -42,14 +40,7 @@ const IntroPageBeforeLogin: React.FC = () => {
       alert("로그인 성공");
 
       // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
-      setCookie("userID", userID, { maxAge: 2000 });
-
-      // userID를 Context에 저장
-      setUserID(userID);
-
-      // 로그인 처리 후 상태 초기화
-      setLoginForm({ userID: "", userPassword: "" });
-      setErrors("");
+      setCookie("userID", userID, { path: "/" });
 
       navigate("/main");
       window.location.reload();

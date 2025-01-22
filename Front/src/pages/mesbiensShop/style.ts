@@ -4,11 +4,10 @@ export const shop = {
   MainContainer: styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh;
     background-color: #fff;
     align-items: center;
-    overflow: auto;
     width: inherit;
+    height: 100vh;
   `,
   HeaderContainer: styled.div`
     width: 100%;
@@ -19,6 +18,12 @@ export const shop = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
   `,
   LogoContainer: styled.div`
     height: 100%;
@@ -50,9 +55,9 @@ export const shop = {
     display: flex;
     gap: 20px;
   `,
-  Cart: styled.a`
+  CartIcon: styled.img`
     border: none;
-    background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/bag.svg`});
+    /* background-image: url(${`${process.env.PUBLIC_URL}/images/shoppingImg/bag.svg`}); */
     background-size: contain;
     background-repeat: no-repeat;
     background-color: transparent;
@@ -78,10 +83,28 @@ export const shop = {
 
   BodyContainer: styled.div`
     display: flex;
-    margin-top: 2rem;
-    width: 70rem;
+    padding-top: 2rem;
+    width: 100%;
     gap: 10rem;
     justify-content: center;
+    overflow-y: auto;
+    /* 스크롤바 */
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background-color: darkgray;
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: 12px;
+    }
     @media screen and (max: 1000px) {
       width: 50rem;
     }
@@ -104,6 +127,7 @@ export const shop = {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    width: 70rem;
   `,
   Item: styled.a`
     width: 18rem;
@@ -137,6 +161,11 @@ export const shop = {
 };
 
 export const p = {
+  ContentContainer: styled.div`
+    display: flex;
+    width: 70rem;
+    gap: 3rem;
+  `,
   ProductImg: styled.img`
     width: 30rem;
   `,
@@ -157,6 +186,9 @@ export const p = {
     flex: 1;
     cursor: pointer;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &:hover {
       background: var(--forth-color);
     }
@@ -172,6 +204,7 @@ export const p = {
 export const cart = {
   ContentContainer: styled.div`
     width: 70%;
+    height: 100vh;
   `,
   ContentUl: styled.ul`
     display: flex;
@@ -226,3 +259,12 @@ export const cart = {
     padding-right: 20px;
   `,
 };
+
+export const ShoppingNavContainer = styled.nav`
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
