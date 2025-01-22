@@ -24,7 +24,11 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/members/register", "/members/login", "/members/{id}").permitAll() // 회원가입, 로그인 경로 접근 허용
+                .requestMatchers
+                ("/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/logout/*",
+                		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}",
+                		"/community/C_board/C_boardWrite","/community/C_board/C_boardWrite_ok","/community/C_board","/community/{postNo}","community/{postNo}/view"
+                		,"/community/{postNo}","/account/add","/account/modify","/account/delete").permitAll() // 경로 접근 허용
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
             );
             

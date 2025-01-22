@@ -25,7 +25,7 @@ import mesbiens.community.post.vo.PostVO;
 @RestController // JSON 데이터를 반환하는 컨트롤러로 설정
 @RequestMapping("/community/*") // RESTful API 기본 경로 설정
 public class PostController {
-
+/*
 	@Autowired
 	private PostService postService;
 	
@@ -119,7 +119,7 @@ public class PostController {
      * @param request HTTP 요청
      * @return 성공 메시지
      */
-	
+	/*
     @PutMapping("/{postNo}")
     public ResponseEntity<String> editPost(@PathVariable int postNo,
 //								    	   @RequestPart("postRequest") PostRequestDTO postRequest,
@@ -133,5 +133,5 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 수정 실패: " + e.getMessage());
         }
     }
-	
+	*/
 }

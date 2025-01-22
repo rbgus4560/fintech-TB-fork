@@ -19,12 +19,13 @@ const AccountListContainer: React.FunctionComponent<Props> = ({ bankInfo, setBan
       const response: Response = await fetch(`${process.env.REACT_APP_SERVER_URL}/account`);
       const acctList: Account[] = await response.json();
 
-      return acctList;
+      return { acctList, response };
   };
 
   useEffect(() => {
     getAccountList()
-    .then((acctList: Account[]) => {
+    .then(({ acctList, response }) => {
+      console.log(response);
       setBankInfo(acctList);
     })
     .catch(() => { console.log("데이터 가져오기 실패") });

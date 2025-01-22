@@ -91,4 +91,5 @@ public class JwtTokenProvider {
         UserDetails userDetails = userDetailsService.loadUserByUsername(memberId); // UserDetailsService를 통해 사용자 정보 로드
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
+    
 }

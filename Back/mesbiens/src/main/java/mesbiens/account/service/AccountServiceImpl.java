@@ -23,8 +23,13 @@ public class AccountServiceImpl implements AccountService {
 
 	// 계좌 추가하기
 	@Override
-	public void addAcct(AccountVO acct) {
-		acctDao.addAcct(acct);
+	public boolean addAcct(AccountVO acct) {
+		AccountVO isSaved = acctDao.addAcct(acct);
+		if(isSaved == null) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	// 계좌 삭제하기
@@ -38,6 +43,13 @@ public class AccountServiceImpl implements AccountService {
 		int result = acctDao.delAcct(accountNo);
 		
 		return result > 0;
+	}
+
+	// 계좌 수정하기
+	@Override
+	public boolean modiAcct(int accountNo) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

@@ -35,15 +35,40 @@ public class AccountController {
 	
 	// 계좌 추가하기
 	@PostMapping("/add")
-	public void addAcct(@RequestBody AccountVO acct) {
-		System.out.println(acct);
-		acctService.addAcct(acct);
+	public ResponseEntity<Map<String, String>> addAcct(@RequestBody AccountVO acct) {
+		Map<String, String> response = new HashMap<>();
+		if(acct == null) {
+			response.put("message", "계좌 정보가 제공되지 않았습니다.");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		boolean result = acctService.addAcct(acct);
+		if(result) {
+			response.put("message", "계좌 추가가 완료되었습니다.");
+			return ResponseEntity.ok(response);
+		}
+		
+		response.put("message", "계좌 추가에 실패하였습니다.");
+		return ResponseEntity.badRequest().body(response);
 	}
 	
 	// 계좌 수정하기
 	@PutMapping("/modify")
-	public void modiAcct(@RequestBody AccountVO acct) {
+	public ResponseEntity<Map<String, String>> modiAcct(@RequestBody AccountVO acct) {
+		Map<String, String> response = new HashMap<>();
+		if(acct == null) {
+			response.put("message", "계좌 번호가 제공되지 않았습니다.");
+			return ResponseEntity.badRequest().body(response);
+		}
 		
+		boolean result = acctService.modiAcct(acct.getAccountNo());
+		if(result) {
+			response.put("message", "계좌 정보 수정이 완료되었습니다.");
+			return ResponseEntity.ok(response);
+		}
+		
+		response.put("message", "계좌 정보를 수정하는데 실패하였습니다.");
+		return ResponseEntity.badRequest().body(response);
 	}
 	
 	// 계좌 삭제하기

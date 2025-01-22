@@ -10,7 +10,7 @@ import mesbiens.community.post.vo.PostRequestDTO;
 import mesbiens.community.post.vo.PostVO;
 
 public interface PostService {
-
+/*
 	
 	Map<String, Object> getPostWritePage(int page); // 게시판 글쓰기
 	
@@ -30,7 +30,7 @@ public interface PostService {
 
 
 	void editPost(int postNo, PostRequestDTO postRequest, MultipartFile uploadFile, HttpServletRequest request); // 게시글 수정
-	
+	*/
 	
 
 

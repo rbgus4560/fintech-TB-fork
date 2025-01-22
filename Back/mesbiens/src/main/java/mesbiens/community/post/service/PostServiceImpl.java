@@ -24,7 +24,7 @@ import mesbiens.community.post.vo.PostVO;
 
 @Service
 public class PostServiceImpl implements PostService {
-
+/*
 	@Autowired
 	private PostDAO postDAO;
 	
@@ -286,6 +286,6 @@ public class PostServiceImpl implements PostService {
         postRequest.setPostFileName(postFilePath);
         postDAO.updatePost(postVO);
     } // 게시글 수정
-		
+	*/	
 	
 }

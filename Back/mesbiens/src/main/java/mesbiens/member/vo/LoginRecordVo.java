@@ -2,9 +2,12 @@ package mesbiens.member.vo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -22,6 +25,8 @@ import lombok.Setter;
 
 public class LoginRecordVo {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "login_record_seq")
+    @SequenceGenerator(name = "login_record_seq", sequenceName = "member_login_records_seq", allocationSize = 1)
     @Column(name = "record_no") // 로그인 기록 ID (Primary Key)
     private int recordNo;
 

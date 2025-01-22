@@ -14,11 +14,18 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final LoginRecordService loginRecordService; // 로그인 기록 처리 서비스
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider) {
+    public MemberService(
+        MemberRepository memberRepository,
+        LoginRecordService loginRecordService, // 로그인 기록 서비스 주입
+        PasswordEncoder passwordEncoder,
+        JwtTokenProvider jwtTokenProvider
+    ) {
         this.memberRepository = memberRepository;
+        this.loginRecordService = loginRecordService;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -48,17 +55,36 @@ public class MemberService {
         return toResponseDTO(savedMember);
     }
 
-    // 로그인 처리
-    public String login(String memberId, String password) {
-        MemberVO member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자 ID입니다."));
+    // 로그인 처리 (로그인 기록 추가)
+    public String login(String memberId, String password, String requestIp) {
+        Optional<MemberVO> optionalMember = memberRepository.findByMemberId(memberId);
 
+        // 사용자 ID 확인
+        if (optionalMember.isEmpty()) {
+            // 로그인 실패 기록 저장
+            loginRecordService.saveLoginRecord(null, requestIp, "F", "존재하지 않는 사용자 ID");
+            throw new IllegalArgumentException("존재하지 않는 사용자 ID입니다.");
+        }
+
+        MemberVO member = optionalMember.get();
+
+        // 비밀번호 확인
         if (!passwordEncoder.matches(password, member.getMemberPassword())) {
+            // 로그인 실패 기록 저장
+            loginRecordService.saveLoginRecord(member, requestIp, "F", "비밀번호가 일치하지 않습니다.");
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        // JWT 토큰 생성
+        // 로그인 성공 기록 저장
+        loginRecordService.saveLoginRecord(member, requestIp, "S", null);
+
+        // JWT 토큰 생성 및 반환
         return jwtTokenProvider.createToken(member.getMemberId(), "USER");
+    }
+
+    // 로그아웃 처리 (로그아웃 시간 업데이트)
+    public void logout(int recordNo) {
+        loginRecordService.logout(recordNo); // 로그인 기록 서비스로 로그아웃 처리
     }
 
     // 사용자 정보 조회 (id를 String으로 처리)

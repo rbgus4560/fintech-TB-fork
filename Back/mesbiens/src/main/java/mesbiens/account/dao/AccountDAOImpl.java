@@ -21,8 +21,12 @@ public class AccountDAOImpl implements AccountDAO {
 
 	// 계좌 추가하기
 	@Override
-	public void addAcct(AccountVO acct) {
-		acctJpaRepo.save(acct);
+	public AccountVO addAcct(AccountVO acct) {
+		if(acctJpaRepo.existsById(acct.getAccountNo())) {
+			return null;
+		}
+		
+		return acctJpaRepo.save(acct);
 	}
 
 	// 제거할 계좌가 존재하는지 검색(Primary key 기준)

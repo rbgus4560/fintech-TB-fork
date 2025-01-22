@@ -10,9 +10,11 @@ public interface AccountService {
 	List<AccountVO> getAllAcct();
 
 	// 계좌 추가하기
-	void addAcct(AccountVO acct);
+	boolean addAcct(AccountVO acct);
 
 	// 계좌 삭제하기
 	boolean delAcct(int accountNo);
+
+	boolean modiAcct(int accountNo);
 
 }

@@ -10,7 +10,7 @@ public interface AccountDAO {
 	List<AccountVO> getAllAcct();
 
 	// 계좌 추가하기
-	void addAcct(AccountVO acct);
+	AccountVO addAcct(AccountVO acct);
 
 	// 제거할 계좌가 존재하는지 검색(Primary key 기준)
 	boolean existsByIdAcct(int accountNo);

@@ -65,7 +65,7 @@ const S = {
         font-size: 16px;
         padding-left: 8px;
 
-        &[data-fieldwarnning="true"] {
+        &.warnPass {
             border: 2px solid red;
             outline: none;
         }
@@ -75,8 +75,8 @@ const S = {
         font-size: 13px;
         margin-top: 6px;
 
-        &[data-fieldwarnning="true"] {
-
+        &.warnPassMessage {
+            color: red;
         }
     `,
     BtnContainer: styled.div`

@@ -63,11 +63,6 @@ const AccountCardListComponent: React.FunctionComponent<Props> = ({ index, acct,
     setIsCardClicked(false);
   };
 
-  const delFetch = async () => {
-
-
-  };
-
   // 계좌 삭제 함수
   const deleteAccount = async () => {
     try {
