@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { shop, ShoppingNavContainer } from "./style";
+import { shop } from "./style";
 import ShoppingNav from "./ShoppingNav";
 
 interface ProductData {

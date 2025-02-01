@@ -26,6 +26,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
             .authorizeHttpRequests(authz -> authz
+<<<<<<< HEAD
                 .requestMatchers(
                     "/members/register", 
                     "/members/login", 
@@ -50,6 +51,15 @@ public class SecurityConfig {
                     "/transactiondetail/withdrawal",
                     "/transactiondetail/delete/{id}"
                 ).permitAll() // 경로 접근 허용
+=======
+                .requestMatchers
+                ("/members/register", "/members/login", "/members/{id}", "/quiz/create","/members/logout/*",
+                		"/quiz/list","quiz/{quizId}","quiz//update/{quizId}","/quiz/delete/{quizId}",
+                		"/community/C_board/C_boardWrite","/community/C_board/C_boardWrite_ok","/community/C_board","/community/{postNo}","community/{postNo}/view"
+                		,"/community/{postNo}","/account/add","/account/modify","/account/delete"
+                		,"/notifications/member/{memberNo}","/notifications/{notificationNo}/read"
+                		,"/notifications").permitAll() // 경로 접근 허용
+>>>>>>> be005f7ef68d8c4b50e9f7f9b27db160e5291579
                 .anyRequest().authenticated() // 나머지 요청은 인증 필요
             );
             

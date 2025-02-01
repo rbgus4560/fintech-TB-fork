@@ -5,11 +5,14 @@ import mesbiens.member.dto.MemberResponseDTO;
 import mesbiens.member.repository.MemberRepository;
 import mesbiens.member.vo.MemberVO;
 import mesbiens.security.JwtTokenProvider;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@SpringBootApplication
 @Service
 public class MemberService {
 

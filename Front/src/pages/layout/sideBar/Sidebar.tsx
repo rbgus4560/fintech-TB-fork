@@ -3,8 +3,11 @@ import S from "./style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 const Sidebar: React.FunctionComponent = (): JSX.Element => {
+  const { handleModal } = ModalFunc();
   const navigate = useNavigate();
   const [cookies] = useCookies<string>(["useID"]); // 쿠키에서 userID 가져오기
 
@@ -12,8 +15,7 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
     event?.preventDefault();
     // 쿠키에 userID가 없으면 로그인 페이지로 리다이렉션
     if (!cookies.userID) {
-      alert("로그인 필요");
-      navigate("/login");
+      handleModal(ModalKeys.LOGIN_REQUIRE);
     } else {
       // 로그인 상태가 확인되면 원하는 페이지로 이동
       const targetUrl = event.currentTarget.getAttribute("href");
@@ -71,6 +73,9 @@ const Sidebar: React.FunctionComponent = (): JSX.Element => {
               메비앙샵
             </NavLink>
           </li>
+          {/* <li>
+            <NavLink to={"/TestPage"}>Test</NavLink>
+          </li> */}
         </ul>
       </S.SideMenuListContainer>
     </S.SideBarContainer>

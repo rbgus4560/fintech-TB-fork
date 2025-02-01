@@ -26,6 +26,7 @@ import ProductPage from "../pages/mesbiensShop/ProductPage";
 import CategoryPage from "../pages/mesbiensShop/CategoryPage";
 import CartPage from "../pages/mesbiensShop/CartPage";
 import PurchasePage from "../pages/mesbiensShop/PurchasePage";
+import TestPage from "../pages/TestPage";
 
 const routes: RouteObject[] = [
   {
@@ -133,8 +134,8 @@ const routes: RouteObject[] = [
     element: <PurchasePage />,
   },
   // {
-  //   path: "ProductPage",
-  //   element: <ProductPage />,
+  //   path: "/TestPage",
+  //   element: <TestPage />,
   // },
   // 나머지 경로
   {

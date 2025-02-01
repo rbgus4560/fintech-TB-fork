@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import L from "./LoginStyle";
 import DefaultButton from "../../components/button/DefaultButton";
@@ -7,18 +7,34 @@ import VerticalDivider from "../../components/divider/VerticalDivider";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { RootState } from "../../modules/store/store";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
 
 const LoginPage: React.FC = () => {
+  const { handleModal } = ModalFunc();
   const [loginForm, setLoginForm] = useState({
     userID: "",
     userPassword: "",
   });
-
-  const [cookies, setCookie] = useCookies<string>(["userID"]);
+  const [cookies, setCookie, removeCookie] = useCookies<string>([
+    "userID",
+    "rememberMe",
+  ]);
   const navigate = useNavigate();
   const [errors, setErrors] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (cookies.rememberMe) {
+      setLoginForm((prevForm) => ({
+        ...prevForm,
+        userID: cookies.rememberMe,
+      }));
+      setRememberMe(true);
+    }
+  }, [cookies.rememberMe]);
 
   const HandleLogin = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -36,10 +52,14 @@ const LoginPage: React.FC = () => {
       // 유효성 통과 시
       console.log("아이디 : " + userID);
       console.log("비밀번호 : " + userPassword);
-      alert("로그인 성공");
+      handleModal(ModalKeys.LOGIN_SUCCESS);
 
-      // 로그인 성공 시 쿠키에 userID 저장, 유효기간 2000초
-      setCookie("userID", userID, { path: "/" });
+      setCookie("userID", userID, { maxAge: 30 * 24 * 60 * 60 });
+      if (rememberMe) {
+        setCookie("rememberMe", userID, { maxAge: 30 * 24 * 60 * 60 });
+      } else {
+        removeCookie("rememberMe");
+      }
 
       navigate("/main");
     }
@@ -51,6 +71,10 @@ const LoginPage: React.FC = () => {
       ...prevForm,
       [name]: value,
     }));
+  };
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRememberMe(e.target.checked);
   };
 
   return (
@@ -81,8 +105,12 @@ const LoginPage: React.FC = () => {
               onChange={handleChange}
               required
             />
-            <L.RememberMe type="checkbox" />
-            <label htmlFor="remember">ID 기억하기</label>
+            <L.RememberMe
+              type="checkbox"
+              checked={rememberMe}
+              onChange={handleCheckbox}
+            />
+            <label>ID 기억하기</label>
             {errors && <div style={{ color: "red" }}>{errors}</div>}
             <DefaultButton width="100%">Login</DefaultButton>
           </form>
@@ -105,7 +133,7 @@ const LoginPage: React.FC = () => {
           </L.P_tag>
           <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
           <L.P_tag style={{ margin: "20px" }}>
-            <a href="/intro">홈으로</a> 나가기
+            <a href="/">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>

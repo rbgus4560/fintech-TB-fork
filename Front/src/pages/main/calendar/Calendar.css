@@ -24,13 +24,13 @@
 
 .calendar-cell:hover {
   /* background-color: #f0f8ff; */
-  background: var(--forth-color);
+  background: var(--third-color);
 }
 
 .calendar-cell.selected {
   /* background-color: #007bff; */
-  background: var(--third-color);
-  color: white;
+  background: var(--forth-color);
+  color: #000000;
   font-weight: bold;
 }
 

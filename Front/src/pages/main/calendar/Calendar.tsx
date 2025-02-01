@@ -108,31 +108,18 @@ const Calendar: React.FC<SmallCalendarProps> = ({ onDateSelect }) => {
             }}
           >
             <span>{formattedDate}</span>
-            {!hasThreeOrMoreRecords && recordsForDay.length > 0 && (
+            {recordsForDay.length > 0 && (
               <div style={{ fontSize: "0.8em", marginTop: "25px" }}>
-                {recordsForDay.map((record) => (
-                  <div
-                    key={record.amount}
-                    style={{ color: getStatusColor(record.status) }}
-                  >
-                    {record.amount}
-                  </div>
-                ))}
-              </div>
-            )}
-            {/* 거래 내역이 3개 이상일 경우 공 표시 */}
-            {hasThreeOrMoreRecords && (
-              <div style={{ display: "flex", gap: "5px" }}>
-                {recordsForDay.some((record) => record.status === "입금") && (
-                  <C.CalendarBall style={{ backgroundColor: "green" }}>
-                    ball
-                  </C.CalendarBall>
-                )}
-                {recordsForDay.some((record) => record.status === "출금") && (
-                  <C.CalendarBall style={{ backgroundColor: "red" }}>
-                    ball
-                  </C.CalendarBall>
-                )}
+                <div style={{ color: getStatusColor(recordsForDay[0].status) }}>
+                  {Math.abs(
+                    recordsForDay.reduce((sum, record) => {
+                      return record.status === "입금"
+                        ? sum + Number(record.amount)
+                        : sum - Number(record.amount);
+                    }, 0)
+                  ).toLocaleString()}{" "}
+                  [{recordsForDay.length}]
+                </div>
               </div>
             )}
           </C.CalendarDayCellButton>

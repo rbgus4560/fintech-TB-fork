@@ -17,7 +17,14 @@ const SignupPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // const [passwordCheck, setPasswordCheck] = useState<boolean>(false);
+  // const [confirmPasswordCheck, setConfirmPasswordCheck] = useState<boolean>(false);
+  // const [passwordMessage, setPasswordMessage] = useState<string>("대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요.");
+  // const [confirmPasswordMessage, setConfirmPasswordMessage] = useState<string>("");
   const [errors, setErrors] = useState<string>("");
+
+  // const passwordRef = useRef<HTMLInputElement>(null);
+  // const confirmPasswordRef = useRef<HTMLInputElement>(null);
 
   // 정규표현식 검사
   const hasLowercase = /[a-z]/;
@@ -35,12 +42,42 @@ const SignupPage: React.FC = () => {
     return matchCount >= 2;
   };
 
+  // const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
+  // const changeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value);
+
+  // // 유효성 검증 함수
+  // const validatePassword = () => {
+  //   if(password === "") {
+  //     setPasswordCheck(false);
+  //     setPasswordMessage("대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요.");
+  //   }else if(!isValidPassword(password)) {
+  //     setPasswordCheck(true);
+  //     setPasswordMessage("대문자/소문자/숫자/특수 문자 중 2가지 이상 조합하셔야 합니다.");
+  //   }else {
+  //     setPasswordCheck(false);
+  //     setPasswordMessage("");
+  //   }
+  // };
+  // const validateConfirmPassword = () => {
+  //   if(confirmPassword !== "" && password !== confirmPassword) {
+  //     setConfirmPasswordCheck(true);
+  //     setConfirmPasswordMessage("패스워드가 서로 일치하지 않습니다.");
+  //   }else {
+  //     setConfirmPasswordCheck(false);
+  //     setConfirmPasswordMessage("");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   validatePassword();
+  //   validateConfirmPassword();
+  // }, [password, confirmPassword]);
+
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (password === "") {
       setErrors(
         "대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요."
@@ -63,9 +100,9 @@ const SignupPage: React.FC = () => {
       });
       console.log("Redux State:", user);
       handleModal(ModalKeys.SIGNUP_SUCCESS);
-      alert("회원가입 완료");
     }
   };
+
   return (
     <L.Body>
       <L.MainContainer>
@@ -133,7 +170,7 @@ const SignupPage: React.FC = () => {
           </L.P_tag>
           <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
           <L.P_tag style={{ margin: "20px" }}>
-            <a href="/">홈으로</a> 나가기
+            <a href="/intro">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>

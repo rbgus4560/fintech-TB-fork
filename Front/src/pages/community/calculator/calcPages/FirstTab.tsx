@@ -10,6 +10,7 @@ const FirstTab = () => {
   const [depositAmount, setDepositAmount] = useState("");
   const [interestRate, setInterestRate] = useState("");
   const [period, setPeriod] = useState("");
+  const [result, setResult] = useState<number | null>(null);
 
   const handlePeriodClick = (period: string) => {
     setSelectedPeriod(period);
@@ -30,6 +31,27 @@ const FirstTab = () => {
     setDepositAmount("");
     setPeriod("");
     setInterestRate("");
+    setResult(null);
+  };
+
+  const calculateInterest = () => {
+    const principal = parseFloat(depositAmount);
+    const rate = parseFloat(interestRate) / 100;
+    const time = parseFloat(period);
+
+    if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+      alert("모든 값을 올바르게 입력해주세요.");
+      return;
+    }
+
+    let interest;
+    if (selectedRate === "단리") {
+      interest = principal * rate * time;
+    } else {
+      interest = principal * Math.pow(1 + rate, time) - principal;
+    }
+
+    setResult(interest);
   };
 
   const handleSubmit = () => {
@@ -138,7 +160,8 @@ const FirstTab = () => {
           <FontAwesomeIcon icon={faRotateRight} />
           초기화
         </C.WhiteBtn>
-        <C.ColorBtn onClick={handleSubmit}>계산하기</C.ColorBtn>
+        <C.ColorBtn onClick={calculateInterest}>계산하기</C.ColorBtn>
+        {result !== null && <div>계산 결과: {result.toFixed(2)}원</div>}
       </C.ButtonContainer>
     </>
   );

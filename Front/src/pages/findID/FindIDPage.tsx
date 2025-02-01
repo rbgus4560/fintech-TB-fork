@@ -160,7 +160,7 @@ const FindIDPage: React.FC = () => {
           </L.P_tag>
           <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
           <L.P_tag style={{ margin: "20px" }}>
-            <a href="/intro">홈으로</a> 나가기
+            <a href="/">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import L from "../login/LoginStyle";
 import DefaultInputField from "../../components/inputfield/InputField";
 import DefaultButton from "../../components/button/DefaultButton";
@@ -19,40 +19,14 @@ const SignupPage: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<string>("");
 
-  // 정규표현식 검사
-  const hasLowercase = /[a-z]/;
-  const hasUppercase = new RegExp("[A-Z]");
-  const hasSpecialChar = /[!$&-]+/;
-  const hasDigit = new RegExp("[0-9]");
-  const isValidPassword = (pwd: string): boolean => {
-    let matchCount = 0;
-
-    if (hasLowercase.test(pwd)) matchCount++;
-    if (hasUppercase.test(pwd)) matchCount++;
-    if (hasSpecialChar.test(pwd)) matchCount++;
-    if (hasDigit.test(pwd)) matchCount++;
-
-    return matchCount >= 2;
-  };
-
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (password === "") {
-      setErrors(
-        "대문자/소문자/숫자/특수문자를 조합하여 10~16자로 입력해주세요."
-      );
-    } else if (!isValidPassword(password)) {
-      setErrors(
-        "대문자/소문자/숫자/특수 문자 중 2가지 이상 조합하셔야 합니다."
-      );
-    } else if (password !== confirmPassword) {
+    if (password !== confirmPassword) {
       setErrors("비밀번호가 일치하지 않습니다!");
     } else {
-      setErrors("");
       dispatch(signup({ name, email, username, password }));
       console.log("Signup Data:", {
         name,
@@ -63,9 +37,9 @@ const SignupPage: React.FC = () => {
       });
       console.log("Redux State:", user);
       handleModal(ModalKeys.SIGNUP_SUCCESS);
-      alert("회원가입 완료");
     }
   };
+
   return (
     <L.Body>
       <L.MainContainer>
@@ -133,7 +107,7 @@ const SignupPage: React.FC = () => {
           </L.P_tag>
           <VerticalDivider height={"20px"} style={{ marginLeft: "20px" }} />
           <L.P_tag style={{ margin: "20px" }}>
-            <a href="/">홈으로</a> 나가기
+            <a href="/intro">홈으로</a> 나가기
           </L.P_tag>
         </L.SignUp>
       </L.MainContainer>

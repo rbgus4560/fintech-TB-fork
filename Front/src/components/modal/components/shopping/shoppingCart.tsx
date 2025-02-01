@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ModalFunc from "../../utils/ModalFunc";
 import CartModal from "./style";
 
-const ShoppingCartModal = () => {
+const ShoppingCartModal: React.FC = () => {
   const { closeModal } = ModalFunc();
 
   return (

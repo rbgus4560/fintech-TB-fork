@@ -46,13 +46,14 @@ export const I = {
   `,
   SignUp: styled.div`
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     width: 100%;
     & a {
       text-align: right;
       text-decoration: none;
       color: var(--text-color-dark);
+      padding-top: 10px;
       &:hover {
         text-decoration: underline;
       }

@@ -1,21 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { T } from "./style";
-import VerticalDivider from "../../components/divider/VerticalDivider";
 import HorizontalDivider from "../../components/divider/HorizontalDivider";
-import { Link } from "react-router-dom";
-import { H1 } from "../../components/htags/style";
+import ModalFunc from "../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../components/modal/keys/ModalKeys";
+import { RootState } from "../../modules/store/store";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  resetAccountPwd,
+  setAccountPwd,
+} from "../../modules/transaction/accountPwdSlice";
+import { useDispatch } from "react-redux";
 
 const Transaction: React.FC = () => {
   const [showBankDetails, setShowBankDetails] = useState(false);
   const [showLastInfo, setShowLastInfo] = useState(false);
+  const accountPassword = useSelector(
+    (state: RootState) => state.accountPwd.accountPwd
+  );
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
   const [mySelectedBank, setMySelectedBank] = useState("");
   const [계좌번호, set계좌번호] = useState("");
   const [입력금액, set입력금액] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [receiver, setReceiver] = useState("홍길동");
-  // const [memoCont, setMemoCont] = useState("메모 남기기");
+  const memo = useSelector((state: RootState) => state.memo.memo);
+  const { handleModal } = ModalFunc();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const accountNumberRef = useRef<HTMLInputElement>(null);
   const amountRef = useRef<HTMLInputElement>(null);
@@ -25,9 +36,10 @@ const Transaction: React.FC = () => {
     set입력금액(입력금액);
   };
   const handle금액 = () => {
-    console.log(`입력금액: ${입력금액}`);
+    console.log(`출금 금액: ${입력금액}`);
   };
   const handleInputClick = () => {
+    console.log("입금 계좌번호 : " + 계좌번호);
     if (계좌번호.length >= 10 && 계좌번호.length <= 14) {
       setShowBankDetails(true);
     } else if (계좌번호 === "") {
@@ -39,8 +51,9 @@ const Transaction: React.FC = () => {
   const handleInputClick2 = () => {
     setShowLastInfo(true);
   };
-  const handleInputClick3 = () => {
-    setShowConfirm(true);
+
+  const handleAccountPwdModal = () => {
+    handleModal(ModalKeys.ACCOUNT_PWD);
   };
 
   const handleButtonClick = () => {
@@ -51,12 +64,12 @@ const Transaction: React.FC = () => {
 
   const handleBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedBank = event.target.value;
-    console.log(selectedBank);
+    console.log("입금 은행 : " + selectedBank);
     setSelectedBank(selectedBank);
   };
   const handleMyBankSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const mySelectedBank = event.target.value;
-    console.log(mySelectedBank);
+    console.log("출금 은행 : " + mySelectedBank);
     setMySelectedBank(mySelectedBank);
     if (amountRef.current) {
       amountRef.current.focus();
@@ -65,20 +78,13 @@ const Transaction: React.FC = () => {
 
   const handle계좌번호 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const 계좌번호 = event.target.value;
-    console.log(계좌번호);
     set계좌번호(계좌번호);
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleReceiver = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const receiver = event.target.value;
-    setReceiver(receiver);
+  const handleToMain = () => {
+    setShowConfirm(false);
+    dispatch(resetAccountPwd());
+    navigate("/main");
   };
 
   useEffect(() => {
@@ -86,6 +92,20 @@ const Transaction: React.FC = () => {
       accountNumberRef.current.focus();
     }
   }, []);
+
+  const handleSendMemo = () => {
+    handleModal(ModalKeys.SEND_MEMO);
+  };
+
+  useEffect(() => {
+    if (accountPassword === "0000") {
+      setShowConfirm(true);
+    } else if (accountPassword !== "") {
+      alert("비밀번호가 틀립니다!");
+    } else {
+      return;
+    }
+  }, [accountPassword]);
 
   return (
     <T.MainContainer>
@@ -177,8 +197,8 @@ const Transaction: React.FC = () => {
                 <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보낼까요?</h2>
                 <T.TransactionInfo>
                   <T.P>받는 분에게 표시</T.P>
-                  <T.P onClick={handleOpenModal} style={{ cursor: "pointer" }}>
-                    {receiver} &gt;
+                  <T.P onClick={handleSendMemo} style={{ cursor: "pointer" }}>
+                    {memo} &gt;
                   </T.P>
                 </T.TransactionInfo>
                 <T.TransactionInfo>
@@ -192,7 +212,7 @@ const Transaction: React.FC = () => {
                   </T.P>
                 </T.TransactionInfo>
                 <T.Button
-                  onClick={handleInputClick3}
+                  onClick={handleAccountPwdModal}
                   style={{ marginTop: "30px" }}
                 >
                   보내기
@@ -203,25 +223,13 @@ const Transaction: React.FC = () => {
         </>
       )}
 
-      {isModalOpen && (
-        <>
-          <T.Overlay onClick={handleCloseModal} />
-          <T.Modal>
-            <T.TextInput placeholder={receiver} onChange={handleReceiver} />
-            <T.Button onClick={handleCloseModal}>입력</T.Button>
-          </T.Modal>
-        </>
-      )}
-
       {showConfirm && (
         <T.ThirdPage>
           <T.img src={`${process.env.PUBLIC_URL}/images/check-circle.svg`} />
           <T.H1>{selectedBank} 계좌로</T.H1>
           <h2 style={{ marginBottom: "20%" }}>{입력금액}을 보냈어요!</h2>
           {/* <T.MemoBtn onClick={handleOpenModal}>메모 남기기</T.MemoBtn> */}
-          <T.Link to="/main">
-            <T.Button>확인</T.Button>
-          </T.Link>
+          <T.Button onClick={handleToMain}>확인</T.Button>
         </T.ThirdPage>
       )}
     </T.MainContainer>

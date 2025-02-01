@@ -7,8 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../../modules/store/store";
 import { useSelector } from "react-redux";
+import ModalFunc from "../../../components/modal/utils/ModalFunc";
+import { ModalKeys } from "../../../components/modal/keys/ModalKeys";
 
 const Header: React.FC = () => {
+  const { handleModal } = ModalFunc();
   const [cookies, setCookie, removeCookie] = useCookies<string>(["userID"]); // 쿠키 가져오기
   const navigate = useNavigate(); // 리다이렉션을 위한 navigate 훅 사용
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,20 +19,18 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     // 로그아웃 처리 로직 추가
-    console.log("로그아웃되었습니다.");
-    alert("로그아웃되었습니다.");
+    handleModal(ModalKeys.LOGOUT_SUCCESS);
     removeCookie("userID");
-    navigate("/");
+    // navigate("/");
     // 페이지 세로고침
-    window.location.reload();
+    // window.location.reload();
   };
 
   const handleCheckLogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event?.preventDefault();
     // 쿠키에 userID가 없으면 로그인 페이지로 리다이렉션
     if (!cookies.userID) {
-      alert("로그인 필요");
-      navigate("/login");
+      handleModal(ModalKeys.LOGIN_REQUIRE);
     } else {
       // 로그인 상태가 확인되면 원하는 페이지로 이동
       const targetUrl = event.currentTarget.getAttribute("href");
@@ -53,6 +54,11 @@ const Header: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const test = () => {
+    console.log("test");
+    handleModal(ModalKeys.SIGNUP_SUCCESS);
+  };
+
   return (
     <S.HeaderContainer>
       <S.HeaderWelcome>
@@ -62,14 +68,16 @@ const Header: React.FC = () => {
         )}
       </S.HeaderWelcome>
 
+      {/* <button onClick={test}>test</button> */}
+
       <S.SearchContainer>
         {/* {SearchVisible && ( */}
-        <S.SearchBarContainer>
+        {/* <S.SearchBarContainer>
           <S.SearchInput type="text" placeholder="Search.." />
           <S.PlainBtn>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </S.PlainBtn>
-        </S.SearchBarContainer>
+        </S.SearchBarContainer> */}
 
         <S.LoginSignupContainer>
           <VerticalDivider style={{ height: "30px" }} />
