@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mesbiens.transaction.service.TransactionDetailService;
+import mesbiens.transaction.dto.TransactionDetailDTO;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
 import java.sql.Timestamp;
@@ -29,13 +30,13 @@ public class TransactionDetailController {
     }
 
     @GetMapping // 거래 내역 조회 (전체 조회)
-    public List<TransactionDetailVO> getAllTransactionList() {
+    public List<TransactionDetailDTO> getAllTransactionList() {
         return trsdService.getAllTransactionList();
     }
 
     // 특정 날짜 범위 거래 내역 조회
     @GetMapping("/date")
-    public List<TransactionDetailVO> getTransactionDate(
+    public List<TransactionDetailDTO> getTransactionDate(
         @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Timestamp startDate,
         @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Timestamp endDate) {
         return trsdService.getTransactionDate(startDate, endDate);

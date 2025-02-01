@@ -6,10 +6,9 @@ import java.util.List;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
 public interface TransactionDetailDAO {
-    List<TransactionDetailVO> findAllTransactions();
-    List<TransactionDetailVO> findTransactionsDate(Timestamp startDate, Timestamp endDate);
-    void saveTransaction(TransactionDetailVO transactionDetailVO);
-    boolean existsById(int id);
-    void deleteTransaction(int id);
-    void saveLog(String logMessage);
-}
+	    List<TransactionDetailVO> findAllTransactions();
+	    List<TransactionDetailVO> findTransactionsDate(Timestamp startDate, Timestamp endDate);
+	    void saveTransaction(TransactionDetailVO transactionDetailVO);
+	    void deleteTransaction(int id);
+	    void saveLog(String logMessage);
+	}

@@ -2,6 +2,7 @@ package mesbiens.transaction.service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mesbiens.account.repository.AccountJpaRepository;
 import mesbiens.account.vo.AccountVO;
 import mesbiens.transaction.dao.TransactionDetailDAO;
+import mesbiens.transaction.dto.TransactionDetailDTO;
 import mesbiens.transaction.vo.TransactionDetailVO;
 import mesbiens.transaction.vo.TransactionType;
 
@@ -21,16 +23,55 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
     
     @Autowired
     private AccountJpaRepository acctJpaRepo; // 계좌 정보 관리 Repository
-
-    @Override // 전체 거래 내역 조회
-    public List<TransactionDetailVO> getAllTransactionList() {
-        return trsdDAO.findAllTransactions();
+//
+//    @Override // 전체 거래 내역 조회
+//    public List<TransactionDetailVO> getAllTransactionList() {
+//        return trsdDAO.findAllTransactions();
+//    }
+//
+//    @Override // 특정 날짜 범위 거래 내역 조회
+//    public List<TransactionDetailVO> getTransactionDate(Timestamp startDate, Timestamp endDate) {
+//        return trsdDAO.findTransactionsDate(startDate, endDate);
+//    }
+	
+    @Override
+    public List<TransactionDetailDTO> getAllTransactionList() {
+        List<TransactionDetailVO> transactions = trsdDAO.findAllTransactions();
+        return transactions.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    @Override // 특정 날짜 범위 거래 내역 조회
-    public List<TransactionDetailVO> getTransactionDate(Timestamp startDate, Timestamp endDate) {
-        return trsdDAO.findTransactionsDate(startDate, endDate);
+    @Override
+    public List<TransactionDetailDTO> getTransactionDate(Timestamp startDate, Timestamp endDate) {
+        List<TransactionDetailVO> transactions = trsdDAO.findTransactionsDate(startDate, endDate);
+        return transactions.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
+
+    private TransactionDetailDTO convertToDTO(TransactionDetailVO transactionDetailVO) {
+        TransactionDetailDTO dto = new TransactionDetailDTO();
+        dto.setTransactionDate(transactionDetailVO.getTransactionCreateAt());
+        dto.setTransactionId(transactionDetailVO.getTransactionNo());
+
+        if (transactionDetailVO.getTransactionSenderAccountNo() != null) {
+            dto.setSenderAccountNo(transactionDetailVO.getTransactionSenderAccountNo().getAccountNo());
+            dto.setSenderName(transactionDetailVO.getTransactionSenderAccountNo().getMemberNo().getMemberName()); // 회원 이름 설정
+            dto.setSenderBankName(transactionDetailVO.getTransactionSenderAccountNo().getBankCode().getBankName());
+        }
+
+        if (transactionDetailVO.getTransactionReceiverAccountNo() != null) {
+            dto.setReceiverAccountNo(transactionDetailVO.getTransactionReceiverAccountNo().getAccountNo());
+            dto.setReceiverName(transactionDetailVO.getTransactionReceiverAccountNo().getMemberNo().getMemberName()); // 회원 이름 설정
+            dto.setReceiverBankName(transactionDetailVO.getTransactionReceiverAccountNo().getBankCode().getBankName());
+        }
+
+        dto.setTransactionAmount(transactionDetailVO.getTransactionBalance());
+        dto.setTransactionStatus("성공"); // 거래 상태를 설정
+        dto.setTransactionConfirmed(true); // 거래 확인 여부를 설정
+        dto.setMemo(transactionDetailVO.getTransactionMemo());
+
+        return dto;
+    }
+    
+    
 
     @Override // 입금
     @Transactional
@@ -60,7 +101,7 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
         }
     }
 
-    @Override // 출금
+    @Override
     @Transactional
     public void withdrawal(TransactionDetailVO transactionDetailVO) {
         if (transactionDetailVO.getTransactionBalance() == null || transactionDetailVO.getTransactionBalance() <= 0) {
@@ -134,12 +175,14 @@ public class TransactionDetailServiceImpl implements TransactionDetailService {
         }
     }
 
-    @Override // 거래 삭제
+    @Override
+    @Transactional
     public void deleteTransaction(int id) {
         trsdDAO.deleteTransaction(id);
     }
 
     @Override // 거래 로그 생성
+    @Transactional
     public void createLog(String logMessage) {
         trsdDAO.saveLog(logMessage);
     }

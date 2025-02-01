@@ -5,15 +5,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import mesbiens.transaction.dto.TransactionDetailDTO;
 import mesbiens.transaction.vo.TransactionDetailVO;
 
 @Service
 public interface TransactionDetailService {
 
 
-	List<TransactionDetailVO> getAllTransactionList();
+	List<TransactionDetailDTO> getAllTransactionList();
 
-	List<TransactionDetailVO> getTransactionDate(Timestamp startDate, Timestamp endDate);
+	List<TransactionDetailDTO> getTransactionDate(Timestamp startDate, Timestamp endDate);
 
 
 	void withdrawal(TransactionDetailVO transactionDetailVO);
